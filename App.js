@@ -1,10 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
+import { Constants } from 'expo'
+
+function FlashCardStatusBar ({backgroundColor, ...props}) {
+    return (
+        <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+            <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        </View>
+    )
+}
 
 
 const Tabs = TabNavigator({
@@ -46,6 +55,7 @@ export default class App extends React.Component {
   render() {
     return (
         <View style={{flex: 1}}>
+            <FlashCardStatusBar backgroundColor={purple} barStyle="light-content" />
             <Tabs />
         </View>
     );
