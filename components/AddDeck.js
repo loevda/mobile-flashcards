@@ -4,14 +4,14 @@
 import React from 'react'
 import {Text, View } from 'react-native';
 
-class Question extends React.Component {
+class AddDeck extends React.Component {
     render () {
         return (
             <View>
-                <Text>This is a question</Text>
+                <Text>Add a deck</Text>
             </View>
         )
     }
 }
 
-export default Question
+export default AddDeck
