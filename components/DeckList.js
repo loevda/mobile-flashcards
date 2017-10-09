@@ -4,8 +4,20 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { white } from '../utils/colors'
+import * as DeckApi from '../utils/api'
 
 class DeckList extends React.Component {
+
+    state = {
+    }
+
+    componentDidMount() {
+        DeckApi.getDecks().then((response) => {
+                this.setState(JSON.parse(response))
+                console.log(this.state)
+        })
+    }
+
     render () {
         return (
             <View style={styles.container}>

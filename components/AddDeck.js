@@ -5,21 +5,32 @@ import React from 'react'
 import {Text, View, TouchableOpacity, StyleSheet, Platform, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { white, purple } from '../utils/colors'
+import { saveDeckTitle } from "../utils/api";
 
 class AddDeck extends React.Component {
+
+    state = {
+        deckTitle: ""
+    }
+
+    submitDeck() {
+        console.log(this.state.deckTitle)
+        saveDeckTitle(this.state.deckTitle)
+    }
+
     render () {
         return (
             <View style={styles.container}>
 
                 <Text style={styles.label}>What is the title of your new deck?</Text>
 
-                <TextInput
+                <TextInput onChangeText={(deckTitle) => this.setState({deckTitle})}
                     style={styles.input}
                 />
 
                 <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                    onPress={() => (alert('ok'))}>
+                    onPress={() => this.submitDeck()}>
                     <Text style={styles.submitBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             </View>
@@ -41,6 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        fontWeight: '300',
     },
     input: {
         height: 40,
