@@ -1,15 +1,25 @@
 /**
  * Created by david2099 on 08/10/17.
  */
-export const ADD_DECK = 'ADD_DECK'
+import * as DeckApi from '../utils/api'
+
+export const SAVE_DECK_TITLE = 'SAVE_DECK_TITLE'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
-export function addDeck (deck) {
+export function saveDeckTitle (deckTitle) {
     return {
-        type: ADD_DECK,
-        deck,
+        type: SAVE_DECK_TITLE,
+        deckTitle,
     }
 }
+
+export const saveDeckTitle = (deckTitle) => dispatch => (
+    DeckApi.fetchAddPost(post)
+        .then((post) => {
+            dispatch(addPost(post))
+        })
+)
+
 
 export function addQuestion (deck, question) {
     return {

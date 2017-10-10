@@ -14,17 +14,23 @@ class AddDeck extends React.Component {
     }
 
     submitDeck() {
-        console.log(this.state.deckTitle)
-        saveDeckTitle(this.state.deckTitle)
+        const { navigate } = this.props.navigation
+        saveDeckTitle(this.state.deckTitle).then(response => {
+                this.setState({deckTitle: ""})
+                navigate('Decks')
+        })
     }
 
     render () {
+
         return (
             <View style={styles.container}>
 
                 <Text style={styles.label}>What is the title of your new deck?</Text>
 
-                <TextInput onChangeText={(deckTitle) => this.setState({deckTitle})}
+                <TextInput
+                    onChangeText={(deckTitle) => this.setState({deckTitle})}
+                    defaultValue={this.state.deckTitle}
                     style={styles.input}
                 />
 
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
     },
     input: {
-        height: 40,
+        height: 80,
         borderColor: 'gray',
         borderWidth: 1,
         flexDirection: 'row',
@@ -64,6 +70,8 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         marginTop: 20,
         marginBottom: 20,
+        padding: 20,
+        fontSize: 26,
     },
     row: {
         flexDirection: 'row',
