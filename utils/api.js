@@ -26,6 +26,6 @@ export const saveDeckTitle = async (deckTitle) => {
 export const addCardToDeck = (title, card) => {
 }
 
-export const clearStorage = async () => {
-    return await AsyncStorage.clear(FLASHCARD_STORAGE_KEY)
+export const clearDecks = async () => {
+    return await AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify({}))
 }

@@ -9,7 +9,8 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 import { white, purple } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
@@ -41,6 +42,20 @@ class DeckList extends React.Component {
         navigate('AddDeck')
     }
 
+    clearAllDesk() {
+        Alert.alert(
+            'Clear all Desks',
+            'Are you sure you want to clear all desks? This action is not reversible.',
+            [
+                {text: 'Yes, I\'m sure', onPress: () => {
+                    DeckApi.clearDecks().then(() => this.setState({ decks: []}))
+                }},
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            { cancelable: false }
+        )
+    }
+
     render () {
         const { decks, loaded } = this.state
 
@@ -57,6 +72,7 @@ class DeckList extends React.Component {
         return (
             <View style={styles.container}>
             {decks.length > 0 ?
+                <View>
                     <FlatList
                         data={this.state.decks}
                         keyExtractor={(item, index) => item.title}
@@ -64,6 +80,12 @@ class DeckList extends React.Component {
                             <Deck title={item.title} questions={item.questions} />
                         )}
                     />
+                    <TouchableOpacity
+                        style={styles.clearButton}
+                        onPress={() => this.clearAllDesk()}>
+                        <Text style={{fontSize: 20}}>Clear all desks</Text>
+                    </TouchableOpacity>
+                </View>
                 :
                 <View style={styles.centering}>
                     <Text style={styles.warningText}>No decks</Text>
@@ -111,6 +133,13 @@ const styles = StyleSheet.create({
     },
     buttonAndIcon: {
         flexDirection: 'row',
+    },
+    clearButton: {
+        borderRadius: 7,
+        borderWidth: StyleSheet.hairlineWidth,
+        padding: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     iosSubmitBtn: {
         backgroundColor: purple,
