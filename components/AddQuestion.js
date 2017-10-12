@@ -1,6 +1,3 @@
-/**
- * Created by david2099 on 08/10/17.
- */
 import React from 'react'
 import {
     Text,
@@ -12,23 +9,10 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { white, purple } from '../utils/colors'
-import { saveDeckTitle } from "../utils/api";
 
-class AddDeck extends React.Component {
+class AddQuestion extends React.Component {
 
-    state = {
-        deckTitle: ""
-    }
-
-    submitDeck() {
-        const { navigate } = this.props.navigation
-        this.props.screenProps.saveDeckTitle(this.state.deckTitle)
-        this.setState({ deckTitle: ""})
-        navigate('Decks')
-    }
-
-    render () {
-
+    render() {
         return (
             <View style={styles.container}>
 
@@ -48,6 +32,7 @@ class AddDeck extends React.Component {
             </View>
         )
     }
+
 }
 
 const styles = StyleSheet.create({
@@ -118,4 +103,5 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddDeck
+
+export default AddQuestion

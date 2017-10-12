@@ -4,7 +4,8 @@ import {
     Text,
     View,
     Platform,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 import { TabNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
@@ -88,9 +89,19 @@ export default class App extends React.Component {
 
     saveDeckTitle = (deckTitle) => {
         const { decks } = this.state
-        DeckApi.saveDeckTitle(deckTitle).then(() => {
-            this.loadDecks()
-        })
+        const filteredDecks = decks.filter((item) => item.title === deckTitle)
+        filteredDecks.length > 0 ?
+            Alert.alert(
+                'Deck already exists',
+                `The deck you are trying to create with the title '${deckTitle}' already exists.`,
+                [
+                    {text: 'OK', onPress: () => null},],
+                { cancelable: false }
+            )
+            :
+            DeckApi.saveDeckTitle(deckTitle).then(() => {
+                this.loadDecks()
+            })
     }
 
     componentDidMount() {
