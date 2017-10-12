@@ -8,34 +8,16 @@ import {
     View,
     ActivityIndicator,
     FlatList,
+    List,
     TouchableOpacity,
     Platform,
     Alert
 } from 'react-native'
 import { white, purple } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
-import * as DeckApi from '../utils/api'
 import Deck from './Deck'
 
 class DeckList extends React.Component {
-
-    state = {
-        loaded: false,
-        decks: []
-    }
-
-    componentDidMount() {
-        DeckApi.getDecks().then((response) => {
-            if (response !== null) {
-                const res = JSON.parse(response)
-                const decks = Object.keys(res).map((key) => {
-                    return res[key]
-                })
-                this.setState({ decks: decks })
-            }
-            this.setState({ loaded: true })
-        })
-    }
 
     gotoAddDesk() {
         const { navigate } = this.props.navigation
@@ -43,26 +25,37 @@ class DeckList extends React.Component {
     }
 
     clearAllDesk() {
+        const { clearDecks } = this.props.screenProps
         Alert.alert(
             'Clear all Desks',
             'Are you sure you want to clear all desks? This action is not reversible.',
             [
-                {text: 'Yes, I\'m sure', onPress: () => {
-                    DeckApi.clearDecks().then(() => this.setState({ decks: []}))
-                }},
+                {text: 'Yes, I\'m sure', onPress: () => clearDecks()},
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
             ],
             { cancelable: false }
         )
     }
 
-    render () {
-        const { decks, loaded } = this.state
+    renderListFooter = () => {
+        return (
+            <View style={styles.bottomView}>
+                <TouchableOpacity
+                    style={styles.clearButton}
+                    onPress={() => this.clearAllDesk()}>
+                    <Text style={{fontSize: 20}}>Clear all desks</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
 
-        if (!loaded) {
+    render () {
+        const { loading, decks } = this.props.screenProps
+
+        if (loading) {
             return (
                 <ActivityIndicator
-                    animating={this.state.animating}
+                    animating={true}
                     style={styles.centering}
                     size="large"
                 />
@@ -74,17 +67,15 @@ class DeckList extends React.Component {
             {decks.length > 0 ?
                 <View>
                     <FlatList
-                        data={this.state.decks}
+                        data={decks}
                         keyExtractor={(item, index) => item.title}
                         renderItem={({ item, index }) => (
                             <Deck title={item.title} questions={item.questions} />
                         )}
+                        ListFooterComponent={() => this.renderListFooter()}
                     />
-                    <TouchableOpacity
-                        style={styles.clearButton}
-                        onPress={() => this.clearAllDesk()}>
-                        <Text style={{fontSize: 20}}>Clear all desks</Text>
-                    </TouchableOpacity>
+
+
                 </View>
                 :
                 <View style={styles.centering}>
@@ -92,7 +83,7 @@ class DeckList extends React.Component {
                     <View style={styles.buttonAndIcon}>
                         <Text style={styles.smallWarning}>Start adding decks</Text>
                         <TouchableOpacity
-                            style={{marginLeft: 10, marginTop: 6}}
+                            style={{marginLeft: 10, marginTop: 6 }}
                             onPress={() => this.gotoAddDesk()}>
                             <Ionicons
                                 name={Platform.OS === 'ios' ? 'ios-arrow-forward' : 'md-arrow-forward'}
@@ -134,15 +125,23 @@ const styles = StyleSheet.create({
     buttonAndIcon: {
         flexDirection: 'row',
     },
+    bottomView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
     clearButton: {
         borderRadius: 7,
         borderWidth: StyleSheet.hairlineWidth,
         padding: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'stretch',
+        backgroundColor: white,
+        marginTop: 30,
     },
     iosSubmitBtn: {
         backgroundColor: purple,
+        borderWidth: StyleSheet.hairlineWidth,
         padding: 10,
         borderRadius: 7,
         height: 45,

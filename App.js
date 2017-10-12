@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Platform,
+    StatusBar
+} from 'react-native';
 import { TabNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import { Constants } from 'expo'
+import * as DeckApi from './utils/api'
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
     return (
@@ -53,22 +60,64 @@ const Tabs = TabNavigator({
 
 export default class App extends React.Component {
 
+    state = {
+        decks: [],
+        loading: true
+    }
 
-  render() {
-    return (
-        <View style={{flex: 1}}>
-            <FlashCardStatusBar backgroundColor={purple} barStyle="light-content" />
-            <Tabs />
-        </View>
-    );
-  }
+    loadDecks = () => {
+        this.setState({ loading: true })
+        DeckApi.getDecks().then((response) => {
+            if (response !== null) {
+                const res = JSON.parse(response)
+                const decks = Object.keys(res).map((key) => {
+                    return res[key]
+                })
+                this.setState({ decks: decks })
+            }
+            this.setState({ loading: false })
+        }).catch((error) => {
+            console.log(error)
+            this.setState({ loading: false })
+        })
+    }
+
+    clearDecks = () => {
+        DeckApi.clearDecks().then(() => this.setState({ decks: []}))
+    }
+
+    saveDeckTitle = (deckTitle) => {
+        const { decks } = this.state
+        DeckApi.saveDeckTitle(deckTitle).then(() => {
+            this.loadDecks()
+        })
+    }
+
+    componentDidMount() {
+        this.loadDecks()
+    }
+
+    render() {
+        screenProps = {
+            decks: this.state.decks,
+            loading: this.state.loading,
+            clearDecks: this.clearDecks,
+            saveDeckTitle: this.saveDeckTitle
+        }
+        return (
+            <View style={{flex: 1}}>
+                <FlashCardStatusBar backgroundColor={purple} barStyle="light-content" />
+                <Tabs screenProps={screenProps}  />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

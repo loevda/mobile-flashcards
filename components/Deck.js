@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native';
+import { white, orange, purple } from "../utils/colors";
 
 class Deck extends React.Component {
     render () {
@@ -19,7 +20,10 @@ class Deck extends React.Component {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        padding: 30,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+
     },
     title: {
         fontSize: 26,

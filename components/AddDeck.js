@@ -15,10 +15,9 @@ class AddDeck extends React.Component {
 
     submitDeck() {
         const { navigate } = this.props.navigation
-        saveDeckTitle(this.state.deckTitle).then(response => {
-                this.setState({deckTitle: ""})
-                navigate('Decks')
-        })
+        this.props.screenProps.saveDeckTitle(this.state.deckTitle)
+        this.setState({ deckTitle: ""})
+        navigate('Decks')
     }
 
     render () {
