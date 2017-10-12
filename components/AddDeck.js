@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { white, purple } from '../utils/colors'
-import { saveDeckTitle } from "../utils/api";
 
 class AddDeck extends React.Component {
 

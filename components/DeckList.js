@@ -70,12 +70,17 @@ class DeckList extends React.Component {
                         data={decks}
                         keyExtractor={(item, index) => item.title}
                         renderItem={({ item, index }) => (
-                            <Deck title={item.title} questions={item.questions} />
+                            <View style={styles.deckContainer}>
+                                <TouchableOpacity
+                                    style={styles.touchable}
+                                    onPress={() => null}>
+                                    <Text style={styles.deckTitle}>{item.title.toUpperCase()}</Text>
+                                    <Text>{item.questions.length} questions</Text>
+                                </TouchableOpacity>
+                            </View>
                         )}
                         ListFooterComponent={() => this.renderListFooter()}
                     />
-
-
                 </View>
                 :
                 <View style={styles.centering}>
@@ -165,6 +170,22 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
     },
+    deckContainer: {
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        flex: 1,
+        justifyContent: 'center',
+    },
+    touchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    deckTitle: {
+        fontSize: 20,
+        fontWeight: "700",
+    }
 })
 
 export default DeckList

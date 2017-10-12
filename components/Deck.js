@@ -10,11 +10,11 @@ class Deck extends React.Component {
     render () {
         const { title, questions } = this.props
         return (
-            <View style={styles.container}>
+            <View style={styles.deckContainer}>
                 <TouchableOpacity
                     style={styles.touchable}
                     onPress={() => null}>
-                    <Text style={styles.title}>{title.toUpperCase()}</Text>
+                    <Text style={styles.deckTitle}>{title.toUpperCase()}</Text>
                     <Text>{questions.length} questions</Text>
                 </TouchableOpacity>
             </View>
@@ -23,7 +23,7 @@ class Deck extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    deckContainer: {
         alignItems: 'center',
         paddingTop: 10,
         paddingBottom: 10,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title: {
+    deckTitle: {
         fontSize: 20,
         fontWeight: "700",
     }
