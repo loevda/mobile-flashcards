@@ -5,16 +5,42 @@ import {
     TouchableOpacity,
     StyleSheet,
     Platform,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { white, purple } from '../utils/colors'
+import { NavigationActions } from 'react-navigation'
 
 class AddQuestion extends React.Component {
 
     state = {
         questionText: "",
         answerText: ""
+    }
+
+    addQuestion = () => {
+        const { addQuestion } = this.props.screenProps
+        const { deck } = this.props.navigation.state.params
+        const { navigate } = this.props.navigation
+        const { questionText, answerText } = this.state
+        if (questionText.length > 10 && answerText.length > 5) {
+            addQuestion(deck, {question: questionText, answer: answerText })
+            const backAction = NavigationActions.back({
+                deck: deck
+            })
+            this.props.navigation.dispatch(backAction)
+        }else{
+            Alert.alert(
+                'Add question',
+                'You need to type a question at least 10 chars long and an answer at least 5 hars long.',
+                [
+                    {text: 'OK', onPress: () => null},
+                ],
+                { cancelable: false }
+            )
+        }
+
     }
 
     render() {
@@ -39,7 +65,7 @@ class AddQuestion extends React.Component {
 
                 <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                    onPress={() => null}>
+                    onPress={() => this.addQuestion()}>
                     <Text style={styles.submitBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             </View>

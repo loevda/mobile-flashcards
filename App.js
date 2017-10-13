@@ -16,6 +16,7 @@ import AddDeck from './components/AddDeck'
 import AddQuestion from './components/AddQuestion'
 import { Constants } from 'expo'
 import * as DeckApi from './utils/api'
+import { find } from 'lodash'
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
     return (
@@ -103,7 +104,6 @@ export default class App extends React.Component {
                 this.setState({ decks: decks })
             }
             this.setState({ loading: false })
-            console.log(this.state)
         }).catch((error) => {
             console.log(error)
             this.setState({ loading: false })
@@ -131,6 +131,15 @@ export default class App extends React.Component {
             })
     }
 
+    addQuestion = (deck, question) => {
+        const questions = deck.questions
+        questions.push(question)
+        const newDeck = {title: deck.title, questions: questions}
+        DeckApi.addCardToDeck(newDeck)
+        this.loadDecks()
+        return
+    }
+
     componentDidMount() {
         this.loadDecks()
     }
@@ -140,7 +149,8 @@ export default class App extends React.Component {
             decks: this.state.decks,
             loading: this.state.loading,
             clearDecks: this.clearDecks,
-            saveDeckTitle: this.saveDeckTitle
+            saveDeckTitle: this.saveDeckTitle,
+            addQuestion: this.addQuestion,
         }
         return (
             <View style={{flex: 1}}>

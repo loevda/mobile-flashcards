@@ -23,7 +23,10 @@ export const saveDeckTitle = async (deckTitle) => {
     }))
 }
 
-export const addCardToDeck = (title, card) => {
+export const addCardToDeck = async (deck) => {
+    return await AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify({
+        [deck.title]: deck
+    }))
 }
 
 export const clearDecks = async () => {

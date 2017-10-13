@@ -7,32 +7,48 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Platform
+    Platform,
+    Alert
 } from 'react-native';
 import { white, orange, purple, red } from "../utils/colors";
 import { Ionicons } from '@expo/vector-icons'
 
 class DeckDetail extends React.Component {
+
+    startQuiz = () => {
+        const { questions } = this.props.navigation.state.params.deck
+        questions.length > 0 ?
+            console.log('ok')
+            :
+            Alert.alert(
+                'Start quiz',
+                'You need to add at least 1 question to your deck before you can start the quiz.',
+                [
+                    {text: 'OK', onPress: () => null},
+                ],
+                { cancelable: false }
+            )
+    }
+
     render () {
-        const { title, questions } = this.props.navigation.state.params.deck
+        const { deck } = this.props.navigation.state.params
         const { navigate} = this.props.navigation
         return (
             <View style={[styles.container, styles.centering]}>
-                <Text style={styles.deckTitle}>{title.toUpperCase()}</Text>
-                <Text>{questions.length} questions</Text>
+                <Text style={styles.deckTitle}>{deck.title.toUpperCase()}</Text>
+                <Text>{deck.questions.length} questions</Text>
                 <View style={styles.subContainer}>
                     <TouchableOpacity
                         style={[styles.touchable, { backgroundColor: purple }]}
-                        onPress={() => navigate('AddQuestion')}>
+                        onPress={() => navigate('AddQuestion', { deck: deck })}>
                         <Text style={styles.buttonText}>Add questions</Text>
                     </TouchableOpacity>
                         <TouchableOpacity
                             style={[styles.touchable, { backgroundColor: orange }]}
-                            onPress={() => null}>
+                            onPress={() => this.startQuiz()}>
                             <Text style={styles.buttonText}>Start quiz</Text>
                         </TouchableOpacity>
                 </View>
-
             </View>
         )
     }
@@ -56,6 +72,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         flexDirection: 'row',
+        borderTopWidth: StyleSheet.hairlineWidth,
+        marginTop: 30,
     },
     touchable: {
         borderRadius: 7,
