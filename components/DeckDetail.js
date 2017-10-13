@@ -6,7 +6,7 @@ import { Text, View, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { white, orange, purple } from "../utils/colors";
 import { Ionicons } from '@expo/vector-icons'
 
-class Deck extends React.Component {
+class DeckDetail extends React.Component {
     render () {
         const { title, questions } = this.props
         return (
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Deck
+export default DeckDetail
