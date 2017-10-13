@@ -13,6 +13,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
 import DeckDetail from './components/DeckDetail'
 import AddDeck from './components/AddDeck'
+import AddQuestion from './components/AddQuestion'
 import { Constants } from 'expo'
 import * as DeckApi from './utils/api'
 
@@ -72,6 +73,15 @@ const MainNavigator = StackNavigator({
                 backgroundColor: purple,
             }
         }
+    },
+    AddQuestion: {
+        screen: AddQuestion,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
     }
 })
 
@@ -93,6 +103,7 @@ export default class App extends React.Component {
                 this.setState({ decks: decks })
             }
             this.setState({ loading: false })
+            console.log(this.state)
         }).catch((error) => {
             console.log(error)
             this.setState({ loading: false })

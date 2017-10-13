@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons'
 class DeckDetail extends React.Component {
     render () {
         const { title, questions } = this.props.navigation.state.params.deck
+        const { navigate} = this.props.navigation
         return (
             <View style={[styles.container, styles.centering]}>
                 <Text style={styles.deckTitle}>{title.toUpperCase()}</Text>
@@ -22,7 +23,7 @@ class DeckDetail extends React.Component {
                 <View style={styles.subContainer}>
                     <TouchableOpacity
                         style={[styles.touchable, { backgroundColor: purple }]}
-                        onPress={() => null}>
+                        onPress={() => navigate('AddQuestion')}>
                         <Text style={styles.buttonText}>Add questions</Text>
                     </TouchableOpacity>
                         <TouchableOpacity

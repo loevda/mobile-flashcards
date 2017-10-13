@@ -12,21 +12,34 @@ import { white, purple } from '../utils/colors'
 
 class AddQuestion extends React.Component {
 
+    state = {
+        questionText: "",
+        answerText: ""
+    }
+
     render() {
         return (
             <View style={styles.container}>
 
-                <Text style={styles.label}>What is the title of your new deck?</Text>
+                <Text style={styles.label}>Type your question</Text>
 
                 <TextInput
-                    onChangeText={(deckTitle) => this.setState({deckTitle})}
-                    defaultValue={this.state.deckTitle}
+                    onChangeText={(questionText) => this.setState({questionText})}
+                    defaultValue={this.state.questionText}
+                    style={styles.input}
+                />
+
+                <Text style={styles.label}>Type your answer</Text>
+
+                <TextInput
+                    onChangeText={(answerText) => this.setState({answerText})}
+                    defaultValue={this.state.answerText}
                     style={styles.input}
                 />
 
                 <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                    onPress={() => this.submitDeck()}>
+                    onPress={() => null}>
                     <Text style={styles.submitBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             </View>
