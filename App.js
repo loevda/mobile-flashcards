@@ -7,10 +7,11 @@ import {
     StatusBar,
     Alert
 } from 'react-native';
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
+import DeckDetail from './components/DeckDetail'
 import AddDeck from './components/AddDeck'
 import { Constants } from 'expo'
 import * as DeckApi from './utils/api'
@@ -55,6 +56,21 @@ const Tabs = TabNavigator({
             },
             shadowRadius: 6,
             shadowOpacity: 1
+        }
+    }
+})
+
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs
+    },
+    DeckDetail: {
+        screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
         }
     }
 })
@@ -118,7 +134,7 @@ export default class App extends React.Component {
         return (
             <View style={{flex: 1}}>
                 <FlashCardStatusBar backgroundColor={purple} barStyle="light-content" />
-                <Tabs screenProps={screenProps}  />
+                <MainNavigator screenProps={screenProps}  />
             </View>
         );
     }

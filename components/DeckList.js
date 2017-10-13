@@ -15,13 +15,18 @@ import {
 } from 'react-native'
 import { white, purple } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
-import Deck from './Deck'
+import DeckDetail from './DeckDetail'
 
 class DeckList extends React.Component {
 
     gotoAddDesk() {
         const { navigate } = this.props.navigation
         navigate('AddDeck')
+    }
+
+    gotoDeckDetail(item) {
+        const { navigate } = this.props.navigation
+        navigate('DeckDetail', { deck: item})
     }
 
     clearAllDesk() {
@@ -73,7 +78,7 @@ class DeckList extends React.Component {
                             <View style={styles.deckContainer}>
                                 <TouchableOpacity
                                     style={styles.touchable}
-                                    onPress={() => null}>
+                                    onPress={() => this.gotoDeckDetail(item)}>
                                     <Text style={styles.deckTitle}>{item.title.toUpperCase()}</Text>
                                     <Text>{item.questions.length} questions</Text>
                                 </TouchableOpacity>
