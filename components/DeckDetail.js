@@ -15,10 +15,15 @@ import { Ionicons } from '@expo/vector-icons'
 
 class DeckDetail extends React.Component {
 
+    static navigationOptions = {
+        title: "Decks list",
+    }
+
     startQuiz = () => {
-        const { questions } = this.props.navigation.state.params.deck
-        questions.length > 0 ?
-            console.log('ok')
+        const { deck } = this.props.navigation.state.params
+        const { navigate } = this.props.navigation
+        deck.questions.length > 0 ?
+            navigate("Quiz", { deck: deck })
             :
             Alert.alert(
                 'Start quiz',
@@ -41,13 +46,13 @@ class DeckDetail extends React.Component {
                     <TouchableOpacity
                         style={[styles.touchable, { backgroundColor: purple }]}
                         onPress={() => navigate('AddQuestion', { deck: deck })}>
-                        <Text style={styles.buttonText}>Add questions</Text>
+                        <Text style={styles.buttonText}>Add question</Text>
                     </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.touchable, { backgroundColor: orange }]}
-                            onPress={() => this.startQuiz()}>
-                            <Text style={styles.buttonText}>Start quiz</Text>
-                        </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.touchable, { backgroundColor: orange }]}
+                        onPress={() => this.startQuiz()}>
+                        <Text style={styles.buttonText}>Start quiz</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

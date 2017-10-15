@@ -14,6 +14,10 @@ import { NavigationActions } from 'react-navigation'
 
 class AddQuestion extends React.Component {
 
+    static navigationOptions = {
+        title: "Deck details",
+    }
+
     state = {
         questionText: "",
         answerText: ""
