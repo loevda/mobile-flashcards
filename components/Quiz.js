@@ -21,6 +21,11 @@ class Quiz extends React.Component {
 
     state = {
         position: 1,
+        showAnswer: false,
+    }
+
+    setShowAnswer = (value) => {
+        this.setState({ showAnswer: value })
     }
 
     nextPos = () => {
@@ -30,6 +35,7 @@ class Quiz extends React.Component {
             this.setState({ position: (position + 1)})
             :
             null
+        this.setState({ showAnswer: false })
     }
 
     prevPos = () => {
@@ -38,6 +44,7 @@ class Quiz extends React.Component {
             this.setState({ position: (position - 1)})
             :
             null
+        this.setState({ showAnswer: false })
     }
 
     render () {
@@ -47,7 +54,7 @@ class Quiz extends React.Component {
                 <Text style={{fontSize: 24, fontWeight: "700"}}>{deck.title}</Text>
                 <Text>Question {this.state.position} of {deck.questions.length}</Text>
                 <View style={styles.subContainer}>
-                    <View style={styles.row}>
+                    <View style={{flex: 1, alignItems: 'flex-start'}}>
                         {this.state.position > 1 ?
                             <TouchableOpacity
                                 style={styles.touchable}
@@ -58,7 +65,7 @@ class Quiz extends React.Component {
                             <Text/>
                         }
                     </View>
-                    <View style={styles.halfView}>
+                    <View style={{flex: 1, alignItems: 'flex-end'}}>
                         {this.state.position < deck.questions.length ?
                             <TouchableOpacity
                                 style={styles.touchable}
@@ -70,7 +77,11 @@ class Quiz extends React.Component {
                         }
                     </View>
                 </View>
-                <Question question={deck.questions[this.state.position-1]} />
+                <Question
+                    question={deck.questions[this.state.position-1]}
+                    showAnswer={this.state.showAnswer}
+                    setShowAnswer={this.setShowAnswer}
+                />
             </View>
         )
     }
@@ -78,34 +89,37 @@ class Quiz extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 3,
         padding: 20,
-        backgroundColor: white
+        backgroundColor: white,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     centering: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 20,
         flexDirection: 'column'
     },
     subContainer: {
-        flex: 2,
-        paddingTop: 24,
+        paddingTop: 14,
         alignItems: 'flex-start',
-        justifyContent: 'center',
         flexDirection: 'row',
         borderTopWidth: StyleSheet.hairlineWidth,
-        marginTop: 30,
+        marginTop: 20,
+        marginBottom: 30,
     },
-    row: {
+    questionContainer: {
+        flexDirection: 'column',
         flex: 1,
-        flexDirection: 'row',
+        backgroundColor: white,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
     touchable: {
         borderRadius: 7,
         borderWidth: StyleSheet.hairlineWidth,
         padding: 10,
-        height: 44,
         backgroundColor: white,
         margin: 10,
     },

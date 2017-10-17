@@ -13,49 +13,51 @@ import { white, red, purple, orange } from "../utils/colors";
 
 class Question extends React.Component {
 
-    state = {
-        showAnswer: false
-    }
-
     render () {
-        const { question } = this.props
+        const { question, showAnswer, setShowAnswer } = this.props
         return (
-            <View>
-                <View>
-                    {!this.state.showAnswer ?
+            <View style={styles.questionContainer}>
+                    {!showAnswer ?
                         <View>
-                            <Text>{question.question}</Text>
+                            <Text style={styles.questionTitle}>{question.question}</Text>
                             <TouchableOpacity
-                                onPress={() => this.setState({ showAnswer: true })}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>ANSWER</Text>
+                                style={{alignItems: 'center', marginTop: 12}}
+                                onPress={() => setShowAnswer(true)}>
+                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
                             </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.touchable, {marginTop: 50, alignItems: 'center', backgroundColor: purple}]}
+                                    onPress={() => setShowAnswer(false)}>
+                                    <Text style={[styles.buttonText, {alignItems: 'flex-end', color: white}]}>CORRECT</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.touchable, {marginTop: 10, alignItems: 'center', backgroundColor: orange}]}
+                                    onPress={() => this.setState({ showAnswer: true })}>
+                                    <Text style={[styles.buttonText, {alignItems: 'flex-end', color: white}]}>INCORRECT</Text>
+                                </TouchableOpacity>
                         </View>
                         :
                         <View>
-                            <Text>{question.answer}</Text>
+                            <Text style={styles.questionTitle}>{question.answer}</Text>
                             <TouchableOpacity
-                                onPress={() => this.setState({ showAnswer: false })}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>QUESTION</Text>
+                                style={{alignItems: 'center', marginTop: 12}}
+                                onPress={() => setShowAnswer(false)}>
+                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
                             </TouchableOpacity>
                         </View>
                     }
-                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    questionContainer: {
+        flexDirection: 'row',
         flex: 1,
-        padding: 20,
-        backgroundColor: white
-    },
-    centering: {
-        alignItems: 'center',
+        backgroundColor: white,
         justifyContent: 'center',
-        paddingTop: 20,
-        flexDirection: 'column'
+        alignItems: 'flex-start',
     },
     subContainer: {
         flex: 2,
@@ -66,22 +68,15 @@ const styles = StyleSheet.create({
         borderTopWidth: StyleSheet.hairlineWidth,
         marginTop: 30,
     },
-    row: {
-        flex: 1,
-        flexDirection: 'row',
-    },
     touchable: {
         borderRadius: 7,
         borderWidth: StyleSheet.hairlineWidth,
         padding: 10,
-        height: 44,
         backgroundColor: white,
-        margin: 10,
     },
-    deckTitle: {
-        fontSize: 24,
-        fontWeight: "700",
-        paddingTop: 40,
+    questionTitle: {
+        fontSize: 26,
+        fontWeight: "300",
     },
     buttonText: {
         fontSize: 16,
