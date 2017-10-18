@@ -12,6 +12,7 @@ import {
 import { white, purple, orange } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import Question from './Question'
+import { find } from 'lodash'
 
 class Quiz extends React.Component {
 
@@ -22,10 +23,43 @@ class Quiz extends React.Component {
     state = {
         position: 1,
         showAnswer: false,
+        answered: [],
+        correct: 0,
+        incorrect: 0
+    }
+
+    reset = () => {
+        this.setState({
+            position: 1,
+            showAnswer: false,
+            answered: [],
+            correct: 0,
+            incorrect: 0
+        })
     }
 
     setShowAnswer = (value) => {
         this.setState({ showAnswer: value })
+    }
+
+    isQuestionAnswered = () => {
+        const { position, answered } = this.state
+        return answered.filter((i) => {
+                return i === position
+            }).length > 0
+    }
+
+    updateAnswered = (res) => {
+        const { deck  } = this.props.navigation.state.params
+        let { answered, correct, incorrect } = this.state
+        const { position } = this.state
+        if (position <= deck.questions.length &&
+            !this.isQuestionAnswered()) {
+            answered.push(position)
+            res ? correct += 1 : incorrect += 1
+        }
+        this.setState({ answered, correct, incorrect })
+        this.nextPos()
     }
 
     nextPos = () => {
@@ -49,6 +83,7 @@ class Quiz extends React.Component {
 
     render () {
         const { deck  } = this.props.navigation.state.params
+        const { correct, incorrect } = this.state
         return (
             <View style={styles.container}>
                 <Text style={{fontSize: 24, fontWeight: "700"}}>{deck.title}</Text>
@@ -81,7 +116,13 @@ class Quiz extends React.Component {
                     question={deck.questions[this.state.position-1]}
                     showAnswer={this.state.showAnswer}
                     setShowAnswer={this.setShowAnswer}
+                    updateAnswered={this.updateAnswered}
+                    isQuestionAnswered={this.isQuestionAnswered}
                 />
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex: 1, justifyContent: 'flex-start'}}>{correct} correct answers</Text>
+                    <Text style={{flex: 1, alignItems: 'flex-end'}}>{incorrect} incorrect answers</Text>
+                </View>
             </View>
         )
     }

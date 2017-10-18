@@ -14,29 +14,50 @@ import { white, red, purple, orange } from "../utils/colors";
 class Question extends React.Component {
 
     render () {
-        const { question, showAnswer, setShowAnswer } = this.props
+        const { question, showAnswer, setShowAnswer, updateAnswered, isQuestionAnswered } = this.props
         return (
             <View style={styles.questionContainer}>
-                    {!showAnswer ?
-                        <View>
-                            <Text style={styles.questionTitle}>{question.question}</Text>
-                            <TouchableOpacity
-                                style={{alignItems: 'center', marginTop: 12}}
-                                onPress={() => setShowAnswer(true)}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
-                            </TouchableOpacity>
+                {!showAnswer ?
+                    <View>
+                        <Text style={styles.questionTitle}>{question.question}</Text>
+                        <TouchableOpacity
+                            style={{alignItems: 'center', marginTop: 12}}
+                            onPress={() => setShowAnswer(true)}>
+                            <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
+                        </TouchableOpacity>
+                        {!isQuestionAnswered() ?
+                            <View>
                                 <TouchableOpacity
-                                    style={[styles.touchable, {marginTop: 50, alignItems: 'center', backgroundColor: purple}]}
-                                    onPress={() => setShowAnswer(false)}>
-                                    <Text style={[styles.buttonText, {alignItems: 'flex-end', color: white}]}>CORRECT</Text>
+                                    style={[styles.touchable, {
+                                        marginTop: 50,
+                                        alignItems: 'center',
+                                        backgroundColor: purple
+                                    }]}
+                                    onPress={() => updateAnswered(true)}>
+                                    <Text style={[styles.buttonText, {
+                                        alignItems: 'flex-end',
+                                        color: white
+                                    }]}>CORRECT</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    style={[styles.touchable, {marginTop: 10, alignItems: 'center', backgroundColor: orange}]}
-                                    onPress={() => this.setState({ showAnswer: true })}>
-                                    <Text style={[styles.buttonText, {alignItems: 'flex-end', color: white}]}>INCORRECT</Text>
+                                    style={[styles.touchable, {
+                                        marginTop: 10,
+                                        alignItems: 'center',
+                                        backgroundColor: orange
+                                    }]}
+                                    onPress={() => updateAnswered(false)}>
+                                    <Text style={[styles.buttonText, {
+                                        alignItems: 'flex-end',
+                                        color: white
+                                    }]}>INCORRECT</Text>
                                 </TouchableOpacity>
-                        </View>
-                        :
+                            </View>
+                            :
+
+                            <Text style={{marginTop: 20}}>You already answered this question</Text>
+                        }
+                    </View>
+                    :
                         <View>
                             <Text style={styles.questionTitle}>{question.answer}</Text>
                             <TouchableOpacity

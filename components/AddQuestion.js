@@ -20,7 +20,7 @@ class AddQuestion extends React.Component {
 
     state = {
         questionText: "",
-        answerText: ""
+        answerText: "",
     }
 
     addQuestion = () => {
@@ -28,7 +28,7 @@ class AddQuestion extends React.Component {
         const { deck } = this.props.navigation.state.params
         const { navigate } = this.props.navigation
         const { questionText, answerText } = this.state
-        if (questionText.length > 10 && answerText.length > 5) {
+        if (questionText.length > 10 && answerText.length > 2) {
             addQuestion(deck, {question: questionText, answer: answerText })
             const backAction = NavigationActions.back({
                 deck: deck
