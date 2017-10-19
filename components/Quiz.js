@@ -42,6 +42,18 @@ class Quiz extends React.Component {
         this.setState({ showAnswer: value })
     }
 
+    quizCompleted = () => {
+        const { position } = this.state
+        const { deck  } = this.props.navigation.state.params
+        return (position > deck.questions.length && this.allQuestionAnswered())
+    }
+
+    allQuestionAnswered = () => {
+        const { position, correct, incorrect } = this.state
+        const { deck  } = this.props.navigation.state.params
+        return (correct + incorrect === deck.questions.length)
+    }
+
     isQuestionAnswered = () => {
         const { position, answered } = this.state
         return answered.filter((i) => {
@@ -65,17 +77,8 @@ class Quiz extends React.Component {
     nextPos = () => {
         const { position } = this.state
         const { deck } = this.props.navigation.state.params
-        position < deck.questions.length ?
+        position < deck.questions.length + 1 ?
             this.setState({ position: (position + 1)})
-            :
-            null
-        this.setState({ showAnswer: false })
-    }
-
-    prevPos = () => {
-        const { position } = this.state
-        position > 1 ?
-            this.setState({ position: (position - 1)})
             :
             null
         this.setState({ showAnswer: false })
@@ -83,45 +86,51 @@ class Quiz extends React.Component {
 
     render () {
         const { deck  } = this.props.navigation.state.params
-        const { correct, incorrect } = this.state
+        const { correct, incorrect, position } = this.state
         return (
             <View style={styles.container}>
+                <View style={styles.topContainer}>
                 <Text style={{fontSize: 24, fontWeight: "700"}}>{deck.title}</Text>
-                <Text>Question {this.state.position} of {deck.questions.length}</Text>
-                <View style={styles.subContainer}>
-                    <View style={{flex: 1, alignItems: 'flex-start'}}>
-                        {this.state.position > 1 ?
-                            <TouchableOpacity
-                                style={styles.touchable}
-                                onPress={() => this.prevPos()}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>PREVIOUS</Text>
-                            </TouchableOpacity>
-                            :
-                            <Text/>
-                        }
-                    </View>
-                    <View style={{flex: 1, alignItems: 'flex-end'}}>
-                        {this.state.position < deck.questions.length ?
-                            <TouchableOpacity
-                                style={styles.touchable}
-                                onPress={() => this.nextPos()}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>NEXT</Text>
-                            </TouchableOpacity>
-                            :
-                            <Text/>
-                        }
-                    </View>
+                    {position > deck.questions.length ?
+                        <Text>Quiz result</Text>
+                        :
+                        <Text style={{alignItems: 'center'}}>Question {this.state.position} of {deck.questions.length}</Text>
+                    }
+
                 </View>
-                <Question
-                    question={deck.questions[this.state.position-1]}
-                    showAnswer={this.state.showAnswer}
-                    setShowAnswer={this.setShowAnswer}
-                    updateAnswered={this.updateAnswered}
-                    isQuestionAnswered={this.isQuestionAnswered}
-                />
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, justifyContent: 'flex-start'}}>{correct} correct answers</Text>
-                    <Text style={{flex: 1, alignItems: 'flex-end'}}>{incorrect} incorrect answers</Text>
+                <View style={styles.subContainer}>
+                    {this.quizCompleted() ?
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontSize: 24, marginBottom: 30}}>Quiz is completed!</Text>
+                            <Text style={{fontSize: 18, marginBottom: 30,}}>{correct} out of {deck.questions.length} answered correctly.</Text>
+                            <TouchableOpacity
+                                style={[styles.touchable, {
+                                    marginTop: 10,
+                                    alignItems: 'center',
+                                    backgroundColor: orange,
+                                    marginBottom: 20,
+                                }]}
+                                onPress={() => this.reset()}>
+                                <Text style={[styles.buttonText, {
+                                    alignItems: 'flex-end',
+                                    color: white
+                                }]}>RESET QUIZ</Text>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <Question
+                            question={deck.questions[position-1]}
+                            showAnswer={this.state.showAnswer}
+                            setShowAnswer={this.setShowAnswer}
+                            updateAnswered={this.updateAnswered}
+                            isQuestionAnswered={this.isQuestionAnswered}
+                        />
+
+                    }
+                </View>
+                <View style={{flexDirection: 'row', alignSelf: 'flex-end', paddingTop: 20, borderTopWidth: StyleSheet.hairlineWidth}}>
+                    <Text style={{flex: 1, justifyContent: 'flex-start'}}>{correct} correct answer{correct !== 1 ? `s` : ``} </Text>
+                    <Text style={{flex: 1, alignItems: 'flex-end'}}>{incorrect} incorrect answer{incorrect !== 1 ? `s` : ``} </Text>
                 </View>
             </View>
         )
@@ -135,7 +144,14 @@ const styles = StyleSheet.create({
         backgroundColor: white,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'space-between',
+    },
+    topContainer: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingBottom: 20,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        alignSelf: 'stretch',
     },
     centering: {
         alignItems: 'center',
@@ -143,12 +159,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     subContainer: {
-        paddingTop: 14,
         alignItems: 'flex-start',
         flexDirection: 'row',
-        borderTopWidth: StyleSheet.hairlineWidth,
-        marginTop: 20,
-        marginBottom: 30,
     },
     questionContainer: {
         flexDirection: 'column',
