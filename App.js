@@ -17,7 +17,7 @@ import AddQuestion from './components/AddQuestion'
 import Quiz from './components/Quiz'
 import { Constants } from 'expo'
 import * as DeckApi from './utils/api'
-import { find } from 'lodash'
+import { setLocalNotification, clearLocalNotification } from './utils/helpers'
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
     return (
@@ -152,6 +152,8 @@ export default class App extends React.Component {
 
     componentDidMount() {
         this.loadDecks()
+        setLocalNotification()
+        //clearLocalNotification()
     }
 
     render() {

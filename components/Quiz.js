@@ -12,7 +12,7 @@ import {
 import { white, purple, orange } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import Question from './Question'
-import { find } from 'lodash'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends React.Component {
 
@@ -26,6 +26,11 @@ class Quiz extends React.Component {
         answered: [],
         correct: 0,
         incorrect: 0
+    }
+
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification())
     }
 
     reset = () => {
