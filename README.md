@@ -16,8 +16,7 @@ Starting the app
 
 Then scan the Qr code using expo client app to test the app on your phone.
 
-You can run the app on iOS or into a simulator.
-You can refer to the documentation [here](https://docs.expo.io/versions/latest/index.html) on how to install it on Android or iOS.
+To run the app on iOS or into a simulator please refer to the documentation [here](https://docs.expo.io/versions/latest/index.html).
 
 ### License
 Mobile Flash cards in under the MIT license.
