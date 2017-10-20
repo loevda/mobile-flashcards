@@ -23,7 +23,6 @@ class Quiz extends React.Component {
     state = {
         position: 1,
         showAnswer: false,
-        answered: [],
         correct: 0,
         incorrect: 0
     }
@@ -37,7 +36,6 @@ class Quiz extends React.Component {
         this.setState({
             position: 1,
             showAnswer: false,
-            answered: [],
             correct: 0,
             incorrect: 0
         })
