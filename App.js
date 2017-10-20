@@ -17,7 +17,7 @@ import AddQuestion from './components/AddQuestion'
 import Quiz from './components/Quiz'
 import { Constants } from 'expo'
 import * as DeckApi from './utils/api'
-import { setLocalNotification, clearLocalNotification } from './utils/helpers'
+import { setLocalNotification } from './utils/helpers'
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
     return (
