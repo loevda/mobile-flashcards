@@ -50,32 +50,17 @@ class Quiz extends React.Component {
     quizCompleted = () => {
         const { position } = this.state
         const { deck  } = this.props.navigation.state.params
-        return (position > deck.questions.length && this.allQuestionAnswered())
+        return (position > deck.questions.length)
     }
 
-    allQuestionAnswered = () => {
-        const { position, correct, incorrect } = this.state
+    updateScore = (res) => {
         const { deck  } = this.props.navigation.state.params
-        return (correct + incorrect === deck.questions.length)
-    }
-
-    isQuestionAnswered = () => {
-        const { position, answered } = this.state
-        return answered.filter((i) => {
-                return i === position
-            }).length > 0
-    }
-
-    updateAnswered = (res) => {
-        const { deck  } = this.props.navigation.state.params
-        let { answered, correct, incorrect } = this.state
+        let { correct, incorrect } = this.state
         const { position } = this.state
-        if (position <= deck.questions.length &&
-            !this.isQuestionAnswered()) {
-            answered.push(position)
+        if (position <= deck.questions.length) {
             res ? correct += 1 : incorrect += 1
         }
-        this.setState({ answered, correct, incorrect })
+        this.setState({ correct, incorrect })
         this.nextPos()
     }
 
@@ -127,8 +112,7 @@ class Quiz extends React.Component {
                             question={deck.questions[position-1]}
                             showAnswer={this.state.showAnswer}
                             setShowAnswer={this.setShowAnswer}
-                            updateAnswered={this.updateAnswered}
-                            isQuestionAnswered={this.isQuestionAnswered}
+                            updateScore={this.updateScore}
                         />
 
                     }

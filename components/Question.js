@@ -14,59 +14,55 @@ import { coreStyles } from '../utils/helpers'
 class Question extends React.Component {
 
     render () {
-        const { question, showAnswer, setShowAnswer, updateAnswered, isQuestionAnswered } = this.props
+        const { question, showAnswer, setShowAnswer, updateScore } = this.props
         return (
             <View style={styles.questionContainer}>
                 {!showAnswer ?
-                    <View>
+                    <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
                         <Text style={styles.questionTitle}>{question.question}</Text>
                         <TouchableOpacity
                             style={{alignItems: 'center', marginTop: 12}}
                             onPress={() => setShowAnswer(true)}>
                             <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
                         </TouchableOpacity>
-                        {!isQuestionAnswered() ?
-                            <View>
-                                <TouchableOpacity
-                                    style={[styles.touchable, {
-                                        marginTop: 50,
-                                        alignItems: 'center',
-                                        backgroundColor: purple
-                                    }]}
-                                    onPress={() => updateAnswered(true)}>
-                                    <Text style={[coreStyles.buttonText, {
-                                        alignItems: 'flex-end',
-                                        color: white
-                                    }]}>CORRECT</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[styles.touchable, {
-                                        marginTop: 10,
-                                        alignItems: 'center',
-                                        backgroundColor: orange
-                                    }]}
-                                    onPress={() => updateAnswered(false)}>
-                                    <Text style={[coreStyles.buttonText, {
-                                        alignItems: 'flex-end',
-                                        color: white
-                                    }]}>INCORRECT</Text>
-                                </TouchableOpacity>
-                            </View>
-                            :
-
-                            <Text style={{marginTop: 20}}>You already answered this question</Text>
-                        }
                     </View>
                     :
-                        <View>
-                            <Text style={styles.questionTitle}>{question.answer}</Text>
-                            <TouchableOpacity
-                                style={{alignItems: 'center', marginTop: 12}}
-                                onPress={() => setShowAnswer(false)}>
-                                <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
-                            </TouchableOpacity>
-                        </View>
-                    }
+                    <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
+                        <Text style={styles.questionTitle}>{question.answer}</Text>
+                        <TouchableOpacity
+                            style={{alignItems: 'center', marginTop: 12}}
+                            onPress={() => setShowAnswer(false)}>
+                            <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+
+                <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
+                    <TouchableOpacity
+                        style={[styles.touchable, {
+                            marginTop: 50,
+                            alignItems: 'center',
+                            backgroundColor: purple
+                        }]}
+                        onPress={() => updateScore(true)}>
+                        <Text style={[coreStyles.buttonText, {
+                            alignItems: 'flex-end',
+                            color: white
+                        }]}>CORRECT</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.touchable, {
+                            marginTop: 10,
+                            alignItems: 'center',
+                            backgroundColor: orange
+                        }]}
+                        onPress={() => updateScore(false)}>
+                        <Text style={[coreStyles.buttonText, {
+                            alignItems: 'flex-end',
+                            color: white
+                        }]}>INCORRECT</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -74,20 +70,11 @@ class Question extends React.Component {
 
 const styles = StyleSheet.create({
     questionContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         flex: 1,
         backgroundColor: white,
         justifyContent: 'center',
         alignItems: 'flex-start',
-    },
-    subContainer: {
-        flex: 2,
-        paddingTop: 24,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        borderTopWidth: StyleSheet.hairlineWidth,
-        marginTop: 30,
     },
     touchable: {
         borderRadius: 7,
