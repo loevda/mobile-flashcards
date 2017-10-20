@@ -1,5 +1,20 @@
 {
   "expo": {
     "sdkVersion": "21.0.0"
+    "orientation": "portrait",
+    "name": "LoevDaMobileFlashCard",
+    "description": "The best flash card app in the world",
+    "slug": "loevdamobileflashcard",
+    "version": "1.0",
+    "icon": "https://png.icons8.com/exam/office/80",
+    "notification": {
+      "icon": "https://png.icons8.com/google-alerts/Dusk_Wired/64"
+    },
+    "ios": {
+      "bundleIdentifier": "org.loevdamobileflashcard.exp"
+    },
+    "android": {
+      "package": "org.loevdamobileflashcard.exp"
+    }
   }
 }
