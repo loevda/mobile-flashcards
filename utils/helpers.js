@@ -3,7 +3,7 @@
  */
 import { AsyncStorage, StyleSheet } from 'react-native'
 import { Notifications, Permissions } from 'expo'
-import { white, red, purple, orange } from './colors'
+import { white, purple } from './colors'
 
 const FLASHCARD_NOTIFICATION_KEY = 'MobileFlashCards:notifications'
 
@@ -76,7 +76,7 @@ export const coreStyles = StyleSheet.create({
         alignSelf: 'stretch',
     },
     input: {
-        height: 80,
+        height: 70,
         borderColor: 'gray',
         borderWidth: 1,
         flexDirection: 'row',
@@ -86,7 +86,7 @@ export const coreStyles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
         padding: 20,
-        fontSize: 26,
+        fontSize: 24,
     },
     row: {
         flexDirection: 'row',
@@ -125,4 +125,26 @@ export const coreStyles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
     },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 20,
+        flexDirection: 'column'
+    },
+    deckTitle: {
+        fontSize: 20,
+        fontWeight: "700",
+    },
+    touchable: {
+        borderRadius: 7,
+        borderWidth: StyleSheet.hairlineWidth,
+        padding: 10,
+        height: 44,
+        backgroundColor: white,
+        margin: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: "300",
+    }
 })

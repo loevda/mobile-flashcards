@@ -3,7 +3,6 @@ import {
     Text,
     View,
     TouchableOpacity,
-    StyleSheet,
     Platform,
     TextInput,
     Alert
@@ -28,7 +27,7 @@ class AddQuestion extends React.Component {
         const { deck } = this.props.navigation.state.params
         const { navigate } = this.props.navigation
         const { questionText, answerText } = this.state
-        if (questionText.length > 10 && answerText.length > 2) {
+        if (questionText.length > 10 && answerText.length > 1) {
             addQuestion(deck, {question: questionText, answer: answerText })
             const backAction = NavigationActions.back({
                 deck: deck
@@ -37,7 +36,7 @@ class AddQuestion extends React.Component {
         }else{
             Alert.alert(
                 'Add question',
-                'You need to type a question at least 10 chars long and an answer at least 5 hars long.',
+                'You need to type a question at least 10 chars long and an answer at least 2 hars long.',
                 [
                     {text: 'OK', onPress: () => null},
                 ],

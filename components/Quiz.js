@@ -7,12 +7,12 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Platform
 } from 'react-native';
-import { white, purple, orange } from '../utils/colors'
+import { white, orange } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import Question from './Question'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
+import { coreStyles } from '../utils/helpers'
 
 class Quiz extends React.Component {
 
@@ -116,7 +116,7 @@ class Quiz extends React.Component {
                                     marginBottom: 20,
                                 }]}
                                 onPress={() => this.reset()}>
-                                <Text style={[styles.buttonText, {
+                                <Text style={[coreStyles.buttonText, {
                                     alignItems: 'flex-end',
                                     color: white
                                 }]}>RESET QUIZ</Text>
@@ -133,7 +133,7 @@ class Quiz extends React.Component {
 
                     }
                 </View>
-                <View style={{flexDirection: 'row', alignSelf: 'flex-end', paddingTop: 20, borderTopWidth: StyleSheet.hairlineWidth}}>
+                <View style={styles.bottomView}>
                     <Text style={{flex: 1, justifyContent: 'flex-start'}}>{correct} correct answer{correct !== 1 ? `s` : ``} </Text>
                     <Text style={{flex: 1, alignItems: 'flex-end'}}>{incorrect} incorrect answer{incorrect !== 1 ? `s` : ``} </Text>
                 </View>
@@ -158,21 +158,15 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         alignSelf: 'stretch',
     },
-    centering: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
-    },
     subContainer: {
         alignItems: 'flex-start',
         flexDirection: 'row',
     },
-    questionContainer: {
-        flexDirection: 'column',
-        flex: 1,
-        backgroundColor: white,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
+    bottomView: {
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        paddingTop: 20,
+        borderTopWidth: StyleSheet.hairlineWidth
     },
     touchable: {
         borderRadius: 7,
@@ -181,15 +175,6 @@ const styles = StyleSheet.create({
         backgroundColor: white,
         margin: 10,
     },
-    deckTitle: {
-        fontSize: 24,
-        fontWeight: "700",
-        paddingTop: 40,
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: "300",
-    }
 })
 
 export default Quiz

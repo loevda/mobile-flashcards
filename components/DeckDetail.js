@@ -7,11 +7,11 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Platform,
     Alert
 } from 'react-native';
 import { white, orange, purple, red } from "../utils/colors";
 import { Ionicons } from '@expo/vector-icons'
+import { coreStyles } from '../utils/helpers'
 
 class DeckDetail extends React.Component {
 
@@ -39,19 +39,19 @@ class DeckDetail extends React.Component {
         const { deck } = this.props.navigation.state.params
         const { navigate} = this.props.navigation
         return (
-            <View style={[styles.container, styles.centering]}>
-                <Text style={styles.deckTitle}>{deck.title.toUpperCase()}</Text>
+            <View style={[styles.container, coreStyles.centering]}>
+                <Text style={[coreStyles.deckTitle, {paddingTop: 40}]}>{deck.title.toUpperCase()}</Text>
                 <Text>{deck.questions.length} questions</Text>
                 <View style={styles.subContainer}>
                     <TouchableOpacity
-                        style={[styles.touchable, { backgroundColor: purple }]}
+                        style={[coreStyles.touchable, { backgroundColor: purple }]}
                         onPress={() => navigate('AddQuestion', { deck: deck })}>
-                        <Text style={styles.buttonText}>Add question</Text>
+                        <Text style={[coreStyles.buttonText, {color: white}]}>Add question</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.touchable, { backgroundColor: orange }]}
+                        style={[coreStyles.touchable, { backgroundColor: orange }]}
                         onPress={() => this.startQuiz()}>
-                        <Text style={styles.buttonText}>Start quiz</Text>
+                        <Text style={[coreStyles.buttonText, {color: white}]}>Start quiz</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -65,12 +65,6 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    centering: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 20,
-        flexDirection: 'column'
-    },
     subContainer: {
         flex: 2,
         paddingTop: 24,
@@ -80,24 +74,6 @@ const styles = StyleSheet.create({
         borderTopWidth: StyleSheet.hairlineWidth,
         marginTop: 30,
     },
-    touchable: {
-        borderRadius: 7,
-        borderWidth: StyleSheet.hairlineWidth,
-        padding: 10,
-        height: 44,
-        backgroundColor: white,
-        margin: 10,
-    },
-    deckTitle: {
-        fontSize: 24,
-        fontWeight: "700",
-        paddingTop: 40,
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: "300",
-        color: white,
-    }
 })
 
 export default DeckDetail

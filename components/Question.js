@@ -6,10 +6,10 @@ import {
     Text,
     View,
     StyleSheet,
-    Platform,
     TouchableOpacity
 } from 'react-native';
-import { white, red, purple, orange } from "../utils/colors";
+import { white, purple, orange } from "../utils/colors";
+import { coreStyles } from '../utils/helpers'
 
 class Question extends React.Component {
 
@@ -23,7 +23,7 @@ class Question extends React.Component {
                         <TouchableOpacity
                             style={{alignItems: 'center', marginTop: 12}}
                             onPress={() => setShowAnswer(true)}>
-                            <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
+                            <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
                         </TouchableOpacity>
                         {!isQuestionAnswered() ?
                             <View>
@@ -34,7 +34,7 @@ class Question extends React.Component {
                                         backgroundColor: purple
                                     }]}
                                     onPress={() => updateAnswered(true)}>
-                                    <Text style={[styles.buttonText, {
+                                    <Text style={[coreStyles.buttonText, {
                                         alignItems: 'flex-end',
                                         color: white
                                     }]}>CORRECT</Text>
@@ -46,7 +46,7 @@ class Question extends React.Component {
                                         backgroundColor: orange
                                     }]}
                                     onPress={() => updateAnswered(false)}>
-                                    <Text style={[styles.buttonText, {
+                                    <Text style={[coreStyles.buttonText, {
                                         alignItems: 'flex-end',
                                         color: white
                                     }]}>INCORRECT</Text>
@@ -63,7 +63,7 @@ class Question extends React.Component {
                             <TouchableOpacity
                                 style={{alignItems: 'center', marginTop: 12}}
                                 onPress={() => setShowAnswer(false)}>
-                                <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
+                                <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
                             </TouchableOpacity>
                         </View>
                     }
@@ -99,10 +99,6 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: "300",
     },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: "300",
-    }
 })
 
 export default Question

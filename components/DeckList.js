@@ -8,14 +8,14 @@ import {
     View,
     ActivityIndicator,
     FlatList,
-    List,
     TouchableOpacity,
     Platform,
     Alert
 } from 'react-native'
-import { white, purple } from '../utils/colors'
+import { white } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import DeckDetail from './DeckDetail'
+import { coreStyles } from '../utils/helpers'
 
 class DeckList extends React.Component {
 
@@ -79,7 +79,7 @@ class DeckList extends React.Component {
                                 <TouchableOpacity
                                     style={styles.touchable}
                                     onPress={() => this.gotoDeckDetail(item)}>
-                                    <Text style={styles.deckTitle}>{item.title.toUpperCase()}</Text>
+                                    <Text style={coreStyles.deckTitle}>{item.title.toUpperCase()}</Text>
                                     <Text>{item.questions.length} questions</Text>
                                 </TouchableOpacity>
                             </View>
@@ -102,7 +102,6 @@ class DeckList extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
             }
             </View>
         )
@@ -149,32 +148,6 @@ const styles = StyleSheet.create({
         backgroundColor: white,
         marginTop: 30,
     },
-    iosSubmitBtn: {
-        backgroundColor: purple,
-        borderWidth: StyleSheet.hairlineWidth,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
-        alignSelf: 'stretch',
-    },
-    AndroidSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        height: 45,
-        borderRadius: 2,
-        alignSelf: 'stretch',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    submitBtnText: {
-        color: white,
-        fontSize: 22,
-        textAlign: 'center',
-    },
     deckContainer: {
         alignItems: 'center',
         paddingTop: 10,
@@ -187,10 +160,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    deckTitle: {
-        fontSize: 20,
-        fontWeight: "700",
-    }
 })
 
 export default DeckList
