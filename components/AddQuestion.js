@@ -5,11 +5,12 @@ import {
     TouchableOpacity,
     Platform,
     TextInput,
-    Alert
+    Alert,
+    StyleSheet
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation'
-import { coreStyles } from '../utils/helpers'
+import { white, purple } from '../utils/colors'
 
 class AddQuestion extends React.Component {
 
@@ -48,33 +49,90 @@ class AddQuestion extends React.Component {
 
     render() {
         return (
-            <View style={coreStyles.container}>
+            <View style={styles.container}>
 
-                <Text style={[coreStyles.label, {justifyContent: 'center'}]}>Type your question</Text>
+                <Text style={[styles.label, {justifyContent: 'center'}]}>Type your question</Text>
 
                 <TextInput
                     onChangeText={(questionText) => this.setState({questionText})}
                     defaultValue={this.state.questionText}
-                    style={coreStyles.input}
+                    style={styles.input}
                 />
 
-                <Text style={coreStyles.label}>Type your answer</Text>
+                <Text style={styles.label}>Type your answer</Text>
 
                 <TextInput
                     onChangeText={(answerText) => this.setState({answerText})}
                     defaultValue={this.state.answerText}
-                    style={coreStyles.input}
+                    style={styles.input}
                 />
 
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? coreStyles.iosSubmitBtn : coreStyles.AndroidSubmitBtn}
+                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
                     onPress={() => this.addQuestion()}>
-                    <Text style={coreStyles.submitBtnText}>SUBMIT</Text>
+                    <Text style={styles.submitBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: white,
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        flexDirection: 'column',
+    },
+    label: {
+        fontSize: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        fontWeight: '300',
+        alignSelf: 'stretch',
+    },
+    input: {
+        height: 70,
+        borderColor: 'gray',
+        borderWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        marginTop: 10,
+        marginBottom: 20,
+        padding: 20,
+        fontSize: 24,
+    },
+    iosSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        marginLeft: 40,
+        marginRight: 40,
+        alignSelf: 'stretch',
+    },
+    AndroidSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 2,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    submitBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center',
+    },
+})
 
 export default AddQuestion

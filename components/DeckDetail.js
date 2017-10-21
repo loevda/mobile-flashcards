@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { white, orange, purple, red } from "../utils/colors";
 import { Ionicons } from '@expo/vector-icons'
-import { coreStyles } from '../utils/helpers'
 
 class DeckDetail extends React.Component {
 
@@ -39,19 +38,19 @@ class DeckDetail extends React.Component {
         const { deck } = this.props.navigation.state.params
         const { navigate} = this.props.navigation
         return (
-            <View style={[styles.container, coreStyles.centering]}>
-                <Text style={[coreStyles.deckTitle, {paddingTop: 40}]}>{deck.title.toUpperCase()}</Text>
+            <View style={[styles.container, styles.centering]}>
+                <Text style={[styles.deckTitle, {paddingTop: 40}]}>{deck.title.toUpperCase()}</Text>
                 <Text>{deck.questions.length} questions</Text>
                 <View style={styles.subContainer}>
                     <TouchableOpacity
-                        style={[coreStyles.touchable, { backgroundColor: purple }]}
+                        style={[styles.touchable, { backgroundColor: purple }]}
                         onPress={() => navigate('AddQuestion', { deck: deck })}>
-                        <Text style={[coreStyles.buttonText, {color: white}]}>Add question</Text>
+                        <Text style={[styles.buttonText, {color: white}]}>Add question</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[coreStyles.touchable, { backgroundColor: orange }]}
+                        style={[styles.touchable, { backgroundColor: orange }]}
                         onPress={() => this.startQuiz()}>
-                        <Text style={[coreStyles.buttonText, {color: white}]}>Start quiz</Text>
+                        <Text style={[styles.buttonText, {color: white}]}>Start quiz</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -74,6 +73,28 @@ const styles = StyleSheet.create({
         borderTopWidth: StyleSheet.hairlineWidth,
         marginTop: 30,
     },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 20,
+        flexDirection: 'column'
+    },
+    deckTitle: {
+        fontSize: 20,
+        fontWeight: "700",
+    },
+    touchable: {
+        borderRadius: 7,
+        borderWidth: StyleSheet.hairlineWidth,
+        padding: 10,
+        height: 44,
+        backgroundColor: white,
+        margin: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: "300",
+    }
 })
 
 export default DeckDetail

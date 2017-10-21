@@ -99,7 +99,7 @@ class Quiz extends React.Component {
                                     marginBottom: 20,
                                 }]}
                                 onPress={() => this.reset()}>
-                                <Text style={[coreStyles.buttonText, {
+                                <Text style={[styles.buttonText, {
                                     alignItems: 'flex-end',
                                     color: white
                                 }]}>RESET QUIZ</Text>
@@ -157,6 +157,10 @@ const styles = StyleSheet.create({
         backgroundColor: white,
         margin: 10,
     },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: "300",
+    }
 })
 
 export default Quiz

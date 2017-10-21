@@ -7,9 +7,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity
-} from 'react-native';
-import { white, purple, orange } from "../utils/colors";
-import { coreStyles } from '../utils/helpers'
+} from 'react-native'
+import { white, purple, orange } from "../utils/colors"
 
 class Question extends React.Component {
 
@@ -18,26 +17,26 @@ class Question extends React.Component {
         return (
             <View style={styles.questionContainer}>
                 {!showAnswer ?
-                    <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
+                    <View style={[styles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
                         <Text style={styles.questionTitle}>{question.question}</Text>
                         <TouchableOpacity
                             style={{alignItems: 'center', marginTop: 12}}
                             onPress={() => setShowAnswer(true)}>
-                            <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
+                            <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW ANSWER</Text>
                         </TouchableOpacity>
                     </View>
                     :
-                    <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
+                    <View style={[styles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
                         <Text style={styles.questionTitle}>{question.answer}</Text>
                         <TouchableOpacity
                             style={{alignItems: 'center', marginTop: 12}}
                             onPress={() => setShowAnswer(false)}>
-                            <Text style={[coreStyles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
+                            <Text style={[styles.buttonText, {alignItems: 'flex-end'}]}>SHOW QUESTION</Text>
                         </TouchableOpacity>
                     </View>
                 }
 
-                <View style={[coreStyles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
+                <View style={[styles.centering, {flexDirection: 'column', alignSelf: 'stretch'}]}>
                     <TouchableOpacity
                         style={[styles.touchable, {
                             marginTop: 50,
@@ -45,7 +44,7 @@ class Question extends React.Component {
                             backgroundColor: purple
                         }]}
                         onPress={() => updateScore(true)}>
-                        <Text style={[coreStyles.buttonText, {
+                        <Text style={[styles.buttonText, {
                             alignItems: 'flex-end',
                             color: white
                         }]}>CORRECT</Text>
@@ -57,7 +56,7 @@ class Question extends React.Component {
                             backgroundColor: orange
                         }]}
                         onPress={() => updateScore(false)}>
-                        <Text style={[coreStyles.buttonText, {
+                        <Text style={[styles.buttonText, {
                             alignItems: 'flex-end',
                             color: white
                         }]}>INCORRECT</Text>
@@ -76,6 +75,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 20,
+        flexDirection: 'column'
+    },
     touchable: {
         borderRadius: 7,
         borderWidth: StyleSheet.hairlineWidth,
@@ -86,6 +91,10 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: "300",
     },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: "300",
+    }
 })
 
 export default Question

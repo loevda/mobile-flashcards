@@ -15,7 +15,6 @@ import {
 import { white } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 import DeckDetail from './DeckDetail'
-import { coreStyles } from '../utils/helpers'
 
 class DeckList extends React.Component {
 
@@ -79,7 +78,7 @@ class DeckList extends React.Component {
                                 <TouchableOpacity
                                     style={styles.touchable}
                                     onPress={() => this.gotoDeckDetail(item)}>
-                                    <Text style={coreStyles.deckTitle}>{item.title.toUpperCase()}</Text>
+                                    <Text style={styles.deckTitle}>{item.title.toUpperCase()}</Text>
                                     <Text>{item.questions.length} questions</Text>
                                 </TouchableOpacity>
                             </View>
@@ -155,6 +154,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         flex: 1,
         justifyContent: 'center',
+    },
+    deckTitle: {
+        fontSize: 20,
+        fontWeight: "700",
     },
     touchable: {
         alignItems: 'center',
