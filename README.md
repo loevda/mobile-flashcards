@@ -19,4 +19,4 @@ Then scan the qr code using expo client app to test the app on your phone.
 To run the app on iOS or into a simulator please refer to the documentation [here](https://docs.expo.io/versions/latest/index.html).
 
 ### License
-Mobile Flash cards in under the MIT license.
+Mobile Flash cards is under the MIT license.
